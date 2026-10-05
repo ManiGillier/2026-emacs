@@ -1,0 +1,9 @@
+*~
+/straight/
+/transient/
+/org-fc-reviews.tsv
+/eln-cache/
+/.cache/
+/.org-id-locations
+*.db
+/bookmarks
