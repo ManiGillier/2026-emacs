@@ -2,8 +2,13 @@
 ;;; Packages
 
 (use-package org
+  :straight t
   :bind (("C-c c" . org-capture)
-         ("C-c n c" . org-capture)))
+         ("C-c n c" . org-capture)
+	 ("C-c C-w" . my-calendar))
+  :bind (:map org-mode-map
+	      ("C-c C-f" . org-refile)
+	      ("C-c C-w" . my-calendar)))
 
 (use-package el-patch
   :straight t)
@@ -17,7 +22,6 @@
    ("C-c *" . org-roam-graph)
    :map org-mode-map
    ("C-+" . org-roam-node-insert)
-   ("C-S-+" . org-roam-capture)
    ("C-/" . org-roam-node-find)
    ("C-*" . org-roam-graph)
    ))
@@ -78,9 +82,12 @@
 	 (rust-mode . eglot-ensure)
 	 (go-mode . eglot-ensure)
 	 (js-mode . eglot-ensure)
-	 (typescript-mode . eglot-ensure))
+	 (typescript-mode . eglot-ensure)
+	 (csharp-mode . eglot-ensure))
   :config
-  (setq eglot-autoshutdown t))
+  (setq eglot-autoshutdown t
+	eglot-workspace-configuration
+	'(:csharp (:applyFormattingOptions t))))
 
 (add-hook 'c-mode-hook
           (lambda ()
@@ -137,7 +144,7 @@
   :after calfw
   :demand t)
 
-(setq org-agenda-files '("~/org/agenda/"))
+(setq org-agenda-files '("~/org/" "~/org/agenda/"))
 
 (use-package org-hyperscheduler
   :straight t
@@ -204,3 +211,22 @@
 ;; Open the calendar
 (global-set-key (kbd "C-c w") 'my-square-calendar)
 (global-set-key (kbd "C-c W") 'my-calendar)
+(global-set-key (kbd "C-c C-w") 'my-calendar)
+(global-set-key (kbd "<f5>") 'calc)
+
+;;; Jupyter
+
+(use-package ein
+  :straight t)
+
+;;; Org babel
+
+;; Org babel for c
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((C . t)))
+
+;; Org babel execute for c
+
+
